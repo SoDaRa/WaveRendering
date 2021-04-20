@@ -98,7 +98,7 @@ init python:
             self.s_e = sine_extreme
 
         def render(self, width, height, st, at):
-            extreme_start = 1.0 # Used to affect how much the wave offset is applied. Is multiplied by damp to decrease or increase the effect with each iteration.
+            extreme_start = 1.0 # Used to affect how much the wave offset is applied.
             if self.s_e:
                 # Lots of ways you may want this function to work. But you should aim to keep the value of extreme between 0.0 and 1.0 for this
                 # I decided on this one since it gives some time off at 0 with longer time on at 1
@@ -135,8 +135,9 @@ init python:
                         render.subpixel_blit(curr_surface, (curr_offset, y)) # Apply our base offset
                         if self.double:
                             render.subpixel_blit(curr_surface, (-curr_offset, y))
-                    extreme = extreme_start - (step_count * ((self.damp - extreme_start) / step_num)) # Change how extreme the wave amplitude will be next round.
-                    step_count += 1
+                    if int(self.damp) != 1:
+                        extreme = extreme_start - (step_count * ((self.damp - extreme_start) / step_num)) # Change how extreme the wave amplitude will be next round.
+                        step_count += 1
             else:
                 for x in range(self.start, self.end, self.step): # Same as above but vertically
                     curr_offset = int(math.sin((1.0/self.freq) * (x+(st * self.speed))) * self.amp) * extreme
@@ -157,8 +158,9 @@ init python:
                         render.subpixel_blit(curr_surface, (x, curr_offset))
                         if self.double:
                             render.subpixel_blit(curr_surface, (x, -curr_offset))
-                    extreme = extreme_start - step_count * ((self.damp - extreme_start) / step_num)
-                    step_count += 1
+                    if int(self.damp) != 1:
+                        extreme = extreme_start - step_count * ((self.damp - extreme_start) / step_num)
+                        step_count += 1
 
             renpy.redraw(self, 0)   # Request redraw
             return render           # Output our new render
@@ -264,9 +266,10 @@ init python:
             self.time = 0
 
         def render(self, width, height, st, at):
-            extreme = 1.0
+            extreme_start = 1.0
             if self.s_e:
-                extreme = min((math.sin(st/2) + 1.0) / 2.0,1.0)
+                extreme_start = min((math.sin(st/2) + 1.0) / 2.0, 1.0)
+            extreme = extreme_start
             t = Transform(child=self.child, rotate = self.rotate)
             child_render = renpy.render(t, width, height, st, at)
             if self.height == 0:
@@ -274,6 +277,8 @@ init python:
                 self.start, self.end = get_wave_range(self.width, self.height, self.start, self.end, self.direction, self.hori)
 
             render = renpy.Render(self.width, self.height)
+            step_num = float(self.start - self.end) / self.step
+            step_count = 1
             if self.hori:
                 for y in range(self.start, self.end,self.step):
                     curr_offset = int(math.sin((1.0/self.freq) * (y+self.time)) * self.amp) * extreme
@@ -284,7 +289,9 @@ init python:
                     render.blit(curr_surface, (curr_offset, y))
                     if self.double:
                         render.blit(curr_surface, (-curr_offset, y))
-                    extreme *= self.damp
+                    if int(self.damp) != 1:
+                        extreme = extreme_start - (step_count * ((self.damp - extreme_start) / step_num))
+                        step_count += 1
             else:
                 for x in range(self.start, self.end,self.step):
                     curr_offset = int(math.sin((1.0/self.freq) * (x+self.time)) * self.amp) * extreme
@@ -295,7 +302,9 @@ init python:
                     render.blit(curr_surface, (x, curr_offset))
                     if self.double:
                         render.blit(curr_surface, (x, -curr_offset))
-                    extreme *= self.damp
+                    if int(self.damp) != 1:
+                        extreme = extreme_start - (step_count * ((self.damp - extreme_start) / step_num))
+                        step_count += 1
             return render           # Output our new, beautiful, render
 
         # How WaveImageUnRotate communicates with us
