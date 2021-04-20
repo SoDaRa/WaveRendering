@@ -7,7 +7,7 @@
  make my day to know I helped some people out!
  http://opensource.org/licenses/mit-license.php
  Forum Post:
- Github:
+ Github: https://github.com/SoDaRa/WaveRendering
 """
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files

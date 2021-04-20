@@ -6,7 +6,6 @@ image interleavedbbg =          Transform(WaveImage("images/bgs/BG4.png",double 
 image interleavedbbg double =   Transform(WaveImage("images/bgs/BG4Rings.png",double = True), zoom=2.8125, nearest = True)
 image rotate_img =              WaveImageUnRotate("images/nito.webp", amp = 20,strip_height = 10, speed=25)
 image sine_ext =                WaveImage("images/nito.webp", amp = 20, sine_extreme = True, damp = 0.995)
-image wave_nito =               WaveImage("images/nito.webp", amp = 20, melt=True, double = True)
 
 image interleaved_solid =   "#600000"
 image pal_solid =           "#203830"
@@ -47,14 +46,6 @@ label start:
     "{wave=s100-}It's likely harder to read but is quite neat.{/wave}"
     "{wave=s100-v}Can even be used vertically if one wishes.{/wave}"
     "{wave}{color=#f00}And can be used{/color} {b}with other text styling{/b} {u}tags.{/u}{/wave}"
-    show wave_nito:
-        xalign 0.2
-        yalign 1.0
-    show rotate_img:
-        xalign 0.8
-    "{wave=s100-v}Distort text and images with waves{/wave}"
-    hide wave_nito
-    hide rotate_img
     "{wave=a20-s50-vmd}Or to really distort it. {/wave}"
     "Thank you for checking out this project and hope it was interesting!"
     "The source code for this can be found in the game folder in the .rpy files."
