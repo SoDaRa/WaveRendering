@@ -28,6 +28,9 @@ Just take the [wave_renderer.rpy](https://github.com/SoDaRa/WaveRendering/blob/m
    - Only strip as much as you need. If you only want to have the effect cover part of an image, then provide a start and end number so it only covers that range.
    - Applying this to a smaller image and then scaling it up to the size you want can help a lot. Especially if you're doing pixel art for your game since using nearest_neighbor during the zoom will keep each pixel crisp. 
 
+## Support
+This code will always be free. But if you'd like to support me you can consider buying it off itch here. https://wattson.itch.io/renpy-wave-rendering
+
 ## Bonus (Palette Cycling)
 As this project was made to emulate the Earthbound battle backgrounds within Ren'py, I felt it incomplete without including Palette Cycling as well. Not sure how many people will find use out of that part. But I'm include it as a bonus. 
 
