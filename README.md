@@ -17,7 +17,7 @@ This project was originally inspired by this video https://youtu.be/zjQik7uwLIQ 
 ## How it works
 This works but having a class that breaks down an image into several strips. An offset is then applied to each strip before being built back together. It also allows for oscillation in terms of which strip is pulled from, which can be useful to simulate water refraction.
 
-## How to use
+## Installation
 Just take the [wave_renderer.rpy](https://github.com/SoDaRa/WaveRendering/blob/main/game/wave_renderer.rpy) and insert it into your project's game folder and should be all set to go. All documentation on the parameters for each of the classes and what they do is provided within the file.
     
 ## Limitations/Optimization
