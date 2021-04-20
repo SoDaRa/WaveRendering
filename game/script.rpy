@@ -1,11 +1,11 @@
 # Image tag declarations
 image bg sunset =               "images/bgs/sunset.jpg"
-image wave set =                WaveImage("images/bgs/sunset.jpg", 20, 10, 0.99, 20, -1, 450, False, True, 1, True, True)
+image wave set =                WaveImage("images/bgs/sunset.jpg", 20, 10, 0.0, 20, -1, 450, False, True, 1, True, True)
 image earthbbg =                TranslateImage(Transform(MeltImage("images/bgs/BG2.png", speed = 50, amp = 50, horizontal=True),xzoom=5,yzoom = 2.8125, nearest=True), True, False)
 image interleavedbbg =          Transform(WaveImage("images/bgs/BG4.png",double = "interleaved"), zoom=2.8125, nearest = True)
 image interleavedbbg double =   Transform(WaveImage("images/bgs/BG4Rings.png",double = True), zoom=2.8125, nearest = True)
 image rotate_img =              WaveImageUnRotate("images/nito.webp", amp = 20,strip_height = 10, speed=25)
-image sine_ext =                WaveImage("images/nito.webp", amp = 20, sine_extreme = True, damp = 0.995)
+image sine_ext =                WaveImage("images/nito.webp", amp = 20, sine_extreme = True, damp = 0.0)
 
 image interleaved_solid =   "#600000"
 image pal_solid =           "#203830"

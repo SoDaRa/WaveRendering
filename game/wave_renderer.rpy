@@ -60,7 +60,7 @@ init python:
         # disp:         (String) Filename of the image to show.
         # freq:         (float) Freqency of the sine wave
         # amp:          (int) How far the lines move
-        # damp:         (float) Dampens the amplitude as it proceeds if < 1.0 or exaggerates it if > 1.0
+        # damp:         (float) The value extreme approaches as the strip process continues
         # speed:        (float) How fast the sine wave moves with time
         # start:        (int) Which y/x it'll start on. -1 To start at edge
         # end:          (int) Which y/x it'll end on. -1 To end at edge
@@ -98,19 +98,22 @@ init python:
             self.s_e = sine_extreme
 
         def render(self, width, height, st, at):
-            extreme = 1.0 # Used to affect how much the wave offset is applied. Is multiplied by damp to decrease or increase the effect with each iteration.
+            extreme_start = 1.0 # Used to affect how much the wave offset is applied. Is multiplied by damp to decrease or increase the effect with each iteration.
             if self.s_e:
                 # Lots of ways you may want this function to work. But you should aim to keep the value of extreme between 0.0 and 1.0 for this
                 # I decided on this one since it gives some time off at 0 with longer time on at 1
-                extreme = min((math.sin(st/2) + 1.0) / 2.0, 1.0)
+                extreme_start = min((math.sin(st/2) + 1.0) / 2.0, 1.0)
+            extreme = extreme_start
             child_render = renpy.render(self.child, width, height, st, at) # The render we'll be distorting.
             if self.height == 0: # If this is out first time, then we need to update our width, height, start and end
                 self.width, self.height = child_render.get_size()
                 self.start, self.end = get_wave_range(self.width, self.height, self.start, self.end, self.direction, self.hori)
 
             render = renpy.Render(self.width, self.height) # The render we'll be putting strips onto
+            step_num = float(self.start - self.end) / self.step
+            step_count = 1
             if self.hori:
-                for y in range(self.start, self.end,self.step):
+                for y in range(self.start, self.end, self.step):
                     curr_offset = int(math.sin((1.0/self.freq) * (y+(st * self.speed))) * self.amp) * extreme # Get the offset we'll work with for this line
                                                                                                               # The melt and line offset share the same wave
                                                                                                               # but could be broken up if one wished.
@@ -132,9 +135,10 @@ init python:
                         render.subpixel_blit(curr_surface, (curr_offset, y)) # Apply our base offset
                         if self.double:
                             render.subpixel_blit(curr_surface, (-curr_offset, y))
-                    extreme *= self.damp # Change how extreme the wave amplitude will be next round.
+                    extreme = extreme_start - (step_count * ((self.damp - extreme_start) / step_num)) # Change how extreme the wave amplitude will be next round.
+                    step_count += 1
             else:
-                for x in range(self.start, self.end,self.step): # Same as above but vertically
+                for x in range(self.start, self.end, self.step): # Same as above but vertically
                     curr_offset = int(math.sin((1.0/self.freq) * (x+(st * self.speed))) * self.amp) * extreme
                     if self.melt:
                         if self.melt == "wrap":
@@ -153,7 +157,8 @@ init python:
                         render.subpixel_blit(curr_surface, (x, curr_offset))
                         if self.double:
                             render.subpixel_blit(curr_surface, (x, -curr_offset))
-                    extreme *= self.damp
+                    extreme = extreme_start - step_count * ((self.damp - extreme_start) / step_num)
+                    step_count += 1
 
             renpy.redraw(self, 0)   # Request redraw
             return render           # Output our new render
