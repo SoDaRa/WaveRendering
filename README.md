@@ -30,3 +30,8 @@ Just take the [wave_renderer.rpy](https://github.com/SoDaRa/WaveRendering/blob/m
 
 ## Bonus (Palette Cycling)
 As this project was made to emulate the Earthbound battle backgrounds within Ren'py, I felt it incomplete without including Palette Cycling as well. Not sure how many people will find use out of that part. But I'm include it as a bonus. 
+
+## Credits
+- The team behind Minotaur Hotel for being cool with me using their sprite for demo purposes. Check 'em out at https://minoh.itch.io/minotaur-hotel
+- Sunset Image borrowed from https://www.flickr.com/photos/rcweir/11074856536/ and modified to fit screen resolution and demonstrate melt effect.
+- Earthbound backgrounds copyrighted to Nintendo. Please don't sue.
