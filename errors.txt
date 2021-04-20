@@ -1,0 +1,11 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/wave_renderer.rpy", line 113: invalid syntax
+                        curr_surface = child_render.subsurface(xoffset,0,self.s_height,self.height))
+                                                                                                    ^
+    
+
+Ren'Py Version: Ren'Py 7.3.5.606
+Mon Apr 19 20:10:00 2021
