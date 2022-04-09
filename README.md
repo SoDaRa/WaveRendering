@@ -5,7 +5,7 @@ Ever wanted to make your images look trippy in Renpy?
 Needed to make things look off?
 Or just add some motion to some water?
 
-![Example Wave](https://github.com/SoDaRa/WaveRendering/blob/main/example_gif/WaveRenderingExample.gif)
+![Example Wave](example_gif/WaveRenderingExample.gif)
 
 I'm proud to share a neat little trick I've found with Ren'py. 
 I don't consider this as useful as my kinetic text tags, but it's at least novel and useful for a couple while Ren'py 7.4 is getting optimized and fixed up.
